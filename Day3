@@ -1,0 +1,99 @@
+//Pseudo Code
+
+function calculateMaxSum():
+    // Read the input
+    n = readInteger() // Read the number of elements in the arrays
+    a = new Array(n+1)
+    b = new Array(n+1)
+    dp = new Array(n+1)
+
+    i = 1
+    while i <= n:
+        a[i] = readInteger() // Read the elements of array 'a'
+        i = i + 1
+
+    i = 1
+    while i <= n:
+        b[i] = readInteger() // Read the elements of array 'b'
+        i = i + 1
+
+    // Initialize dp array
+    dp[1] = max(a[1], b[1])
+    dp[2] = max(dp[1], max(a[2], b[2]))
+
+    // Calculate dp[i] using the formula dp[i] = max(dp[i-1], b[i] + dp[i-2], a[i] + dp[i-2])
+    i = 3
+    while i <= n:
+        x = dp[i - 1]
+        y = b[i] + dp[i - 2]
+        z = a[i] + dp[i - 2]
+        dp[i] = max(x, max(y, z))
+        i = i + 1
+
+    // Print the result
+    print("Answer: " + dp[n])
+
+
+
+-----------------------------------------------------------------------------
+
+//Java Code
+import java.util.Scanner;
+ 
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+ 
+        int n = scanner.nextInt();
+        int[] a = new int[n + 1];
+        int[] b = new int[n + 1];
+        int[] dp = new int[n + 1];
+ 
+        for (int i = 1; i <= n; i++) {
+            a[i] = scanner.nextInt();
+        }
+ 
+        for (int i = 1; i <= n; i++) {
+            b[i] = scanner.nextInt();
+        }
+ 
+        dp[1] = Math.max(a[1], b[1]);
+        dp[2] = Math.max(dp[1], Math.max(a[2], b[2]));
+ 
+        for (int i = 3; i <= n; i++) {
+            int x = dp[i - 1];
+            int y = b[i] + dp[i - 2];
+            int z = a[i] + dp[i - 2];
+            dp[i] = Math.max(x, Math.max(y, z));
+        }
+ 
+        System.out.println("Answer: " + dp[n]);
+    }
+}
+---------------------------------------------------------------------------------------------
+CPP code
+#include <iostream>
+#include <algorithm>
+using namespace std;
+ 
+int main() {
+    int n;
+    cin >> n;
+    int a[n + 1], b[n + 1], dp[n + 1];
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; i++) {
+        cin >> b[i];
+    }
+    dp[1] = max(a[1], b[1]);
+    dp[2] = max(dp[1], max(a[2], b[2]));
+    for (int i = 3; i <= n; i++) {
+        int x = dp[i - 1];
+        int y = b[i] + dp[i - 2];
+        int z = a[i] + dp[i - 2];
+        dp[i] = max(x, max(y, z));
+    }
+    cout << "Answer: " << dp[n] << endl;
+    return 0;
+}
