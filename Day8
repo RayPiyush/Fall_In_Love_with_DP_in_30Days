@@ -1,1 +1,30 @@
+//Pseudo Code
+Function findMinimumCost(n, y, x, z, b):
+    // Create an array to store the minimum costs for each number from 1 to n
+    Initialize dp[n+1]
+    // Initialize the minimum cost to reach 1 as 0
+    dp[1] = 0
+    // Iterate from 2 to n
+    For i = 2 to n:
+        v1 = dp[i - 1] + y
+        v2 = Integer.MAX_VALUE
+        v3 = Integer.MAX_VALUE
+        v4 = Integer.MAX_VALUE
+
+        // Check if i is a multiple of 7
+        If i % 7 == 0:
+            v2 = dp[i / 7] + x
+        // Check if i is a multiple of 3
+        If i % 3 == 0:
+            v3 = dp[i / 3] + z
+
+        // Check if i is a multiple of 5
+        If i % 5 == 0:
+            v4 = dp[i / 5] + b
+
+        // Update dp[i] with the minimum of v1, v2, v3, and v4
+        dp[i] = Min(v1, Min(v2, Min(v3, v4)))
+
+    // The minimum cost to reach n is stored in dp[n]
+    Return dp[n]
 
