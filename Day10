@@ -1,1 +1,88 @@
+//Pseudo Code
 
+function countSubstrings(s):
+    n = length of s
+    dp = 2D array of integers // Initialize with zeros
+    l_palindrome = 0
+
+    // Base cases: Single characters are palindromes
+    for i in range(n):
+        dp[i][i] = 1
+        increment l_palindrome by 1
+
+    // Check for palindromes of length 2
+    for i in range(n - 1):
+        if s[i] == s[i + 1]:
+            dp[i][i+1] = 1
+            increment l_palindrome by 1
+
+    // Find palindromes of length greater than 2
+    for length from 3 to n:
+        for i in range(n - length + 1):
+            j = i + length - 1
+            ch3 = s[i]
+            ch4 = s[j
+
+            if ch3 == ch4 and dp[i+1][j-1] == 1:
+                dp[i][j] = 1
+                increment l_palindrome by 1
+
+    return l_palindrome
+
+----------------------------------------------------
+//JAVA CODE
+
+class Solution {
+    public int countSubstrings(String s) {
+        int[][] dp = new int[1100][1100];
+		// String s ; 
+		// s=sc.next();
+	    int n = s.length();
+	    int i; 
+ 
+	    i = 0 ; int l_palindrome = 0 ; 
+	    while(i<n){
+	        dp[i][i] = 1 ; 
+	        l_palindrome++ ; 
+	        i++;
+	    }
+ 
+ 
+ 
+	    i = 0 ; 
+	    while(i<n-1){
+			char ch = s.charAt(i);
+			char ch1 = s.charAt(i+1);
+	        if(ch==ch1){
+	            dp[i][i+1] = 1 ; 
+	            l_palindrome++ ; 
+	        } 
+ 
+	        i++;
+	    }
+ 
+ 
+ 
+	    int length = 3 ; 
+	    while(length<=n){
+ 
+ 
+	        i = 0 ; 
+	        while(i<n-length+1){
+	            int j = i + length - 1 ; 
+				char ch3 = s.charAt(i);
+				char ch4 = s.charAt(j);
+	            if(ch3==ch4 && dp[i+1][j-1]==1){
+	                dp[i][j] = 1 ; 
+	                l_palindrome++  ;
+	            } 
+	            i++;
+	        }
+ 
+ 
+	        length++;
+	    }
+ 
+        return l_palindrome;
+    }
+}
