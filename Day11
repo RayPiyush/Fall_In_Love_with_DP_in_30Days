@@ -1,1 +1,101 @@
+//Pseudo code
 
+1. Initialize a 2D array dp of size 500x500 with all elements set to 0.
+2. Read a string s from the user.
+3. Initialize variable n to the length of the string s.
+4. Initialize a variable l_palindrome to 0 to keep track of the longest palindromic substring length.
+5. Initialize variable i to 0.
+6. Loop while i is less than n:
+   a. Set dp[i][i] to 1 (since single characters are palindromes).
+   b. Set l_palindrome to 1.
+   c. Increment i.
+7. Initialize i to 0.
+8. Loop while i is less than n - 1:
+   a. Check if s[i] is equal to s[i+1]:
+      i. Set dp[i][i+1] to 1.
+      ii. Set l_palindrome to 2.
+   b. Increment i.
+9. Initialize a variable length to 3.
+10. Loop while length is less than or equal to n:
+    a. Initialize i to 0.
+    b. Loop while i is less than n - length + 1:
+       i. Calculate j as i + length - 1.
+       ii. Check if s[i] is equal to s[j] and dp[i+1][j-1] is equal to 1:
+           i. Set dp[i][j] to 1.
+           ii. Set l_palindrome to length.
+       iii. Increment i.
+    c. Increment length.
+11. Output the value of l_palindrome, which represents the length of the longest palindromic substring in the string s.
+
+-------------------------------------------------------------------------------
+//Java Code
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+ 
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Scanner sc = new Scanner(System.in);
+		int[][] dp = new int[500][500];
+		String s ; 
+		s=sc.next();
+	    int n = s.length();
+	    int i; 
+ 
+	    i = 0 ; int l_palindrome = 0 ; 
+	    while(i<n){
+	        dp[i][i] = 1 ; 
+	        l_palindrome = 1 ; 
+	        i++;
+	    }
+ 
+ 
+ 
+	    i = 0 ; 
+	    while(i<n-1){
+			char ch = s.charAt(i);
+			char ch1 = s.charAt(i+1);
+	        if(ch==ch1){
+	            dp[i][i+1] = 1 ; 
+	            l_palindrome = 2 ; 
+	        } 
+ 
+	        i++;
+	    }
+ 
+ 
+ 
+	    int length = 3 ; 
+	    while(length<=n){
+ 
+ 
+	        i = 0 ; 
+	        while(i<n-length+1){
+	            int j = i + length - 1 ; 
+				char ch3 = s.charAt(i);
+				char ch4 = s.charAt(j);
+	            if(ch3==ch4 && dp[i+1][j-1]==1){
+	                dp[i][j] = 1 ; 
+	                l_palindrome = length  ;
+	            } 
+	            i++;
+	        }
+ 
+ 
+	        length++;
+	    }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	    System.out.print(l_palindrome);
+ 
+	}
+}
