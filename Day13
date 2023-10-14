@@ -1,1 +1,65 @@
+//Pseudo code
+1. Create a function `findans(nums, si, ei, dp)` to calculate the maximum number of coins that can be obtained within the range [si, ei] of the `nums` array, using dynamic programming.
+   - Initialize the length of the `nums` array as 'n'.
+   - Iterate over 'g' from 0 to 'n - 1', which represents the gap size.
+     - Initialize 'i' to 0.
+     - Initialize 'j' to 'i + g'.
+     - While 'i' is less than 'n' and 'j' is less than 'n':
+       - Calculate 'lele' as 'nums[i - 1]' if 'i' is 0; otherwise, it's 1.
+       - Calculate 'rele' as 'nums[j + 1]' if 'j' is the last index of the array; otherwise, it's 1.
+       - Initialize 'max' to a very small negative value (e.g., -1e9).
+       - Iterate over 'cut' from 'i' to 'j':
+         - Calculate 'lans' as 0 if 'cut' is equal to 'i'; otherwise, it's 'dp[i][cut - 1]'.
+         - Calculate 'rans' as 0 if 'cut' is equal to 'j'; otherwise, it's 'dp[cut + 1][j]'.
+         - Calculate 'total' as 'lans + rans + lele * rele * nums[cut]'.
+         - Update 'max' by taking the maximum of 'max' and 'total'.
+       - Set 'dp[i][j]' to 'max'.
+       - Increment 'i' and 'j'.
+   - The maximum number of coins within the range [si, ei] is stored in 'dp[si][ei]'.
 
+2. Create a function 'maxCoins(nums)' to find the maximum number of coins that can be obtained by bursting balloons.
+   - Initialize a 2D integer array 'dp' of size (nums.length + 1) x (nums.length + 1).
+   - Call the 'findans' function with 'nums', range start '0', range end 'nums.length - 1', and 'dp'.
+   - Return the result obtained in the 'dp' array, i.e., 'dp[0][nums.length - 1]'.
+
+3. In the main code, initialize a 2D array 'dp'.
+4. Call the 'maxCoins' function with the input 'nums'.
+5. Return the maximum number of coins as the result.
+
+
+//Java Code
+class Solution {
+    public int findans(int[]nums,int si,int ei,int[][]dp)
+    {
+         int n=nums.length;
+         for(int g=0;g<=nums.length-1;g++)
+         {
+             int i=0;
+             int j=i+g;
+             while(i<n && j<n)
+             {
+                 int lele=(i==0)?1:nums[i-1];
+                 int rele=(j==nums.length-1)?1:nums[j+1];
+                 int max=-(int)1e9;
+                 for(int cut=i;cut<=j;cut++)
+                 {
+                     int lans=cut==i?0:dp[i][cut-1];
+                     int rans=cut==j?0:dp[cut+1][j];
+                     int total=lans+rans+lele*rele*nums[cut];
+                     max=Math.max(max,total);
+                 }
+                 dp[i][j]=max;
+                 i=i+1;
+                 j=j+1;
+             }
+         }
+        int ans=dp[0][nums.length-1];
+        return ans;
+    }
+    public int maxCoins(int[] nums) 
+    {
+        int [][]dp=new int[nums.length+1][nums.length+1];
+        int ans=findans(nums,0,nums.length-1,dp);
+        return ans;
+    }
+}
